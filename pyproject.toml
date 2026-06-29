@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scam-spotter"
+version = "0.1.0"
+description = "Explainable scam & phishing message detection: DistilBERT classifier + transparent rule engine + calibration"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = []
+
+[project.optional-dependencies]
+ml = [
+    "torch>=2.2.0",
+    "transformers>=4.44.0",
+]
+app = [
+    "gradio>=4.44.0",
+]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=5.0.0",
+]
+
+[project.scripts]
+scam-spotter = "scam_spotter.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["scam_spotter*"]
+
+[tool.setuptools.package-data]
+scam_spotter = ["data/*.jsonl"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short"
+
+[tool.coverage.run]
+source = ["scam_spotter"]
+omit = ["*/tests/*", "*/app.py", "*/classifier.py"]
