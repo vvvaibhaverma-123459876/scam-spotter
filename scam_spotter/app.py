@@ -58,7 +58,13 @@ def analyze_message(text: str):
 def build_demo():
     import gradio as gr
 
-    with gr.Blocks(title="Scam Spotter", theme=gr.themes.Soft()) as demo:
+    # `theme` is accepted by Blocks on Gradio 4/5 and by launch() on 6+, so we
+    # set it where the installed version expects it to avoid a deprecation warning.
+    blocks_kwargs = {"title": "Scam Spotter"}
+    if int(gr.__version__.split(".")[0]) < 6:
+        blocks_kwargs["theme"] = gr.themes.Soft()
+
+    with gr.Blocks(**blocks_kwargs) as demo:
         gr.Markdown(
             "# 🛡️ Scam Spotter\n"
             "Paste a suspicious **text, email, or DM** and find out if it's likely a scam — "

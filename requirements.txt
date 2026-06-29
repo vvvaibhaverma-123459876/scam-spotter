@@ -1,6 +1,7 @@
-# Full app dependencies (also used by the Hugging Face Space).
-# The core library (rules, analyzer, calibration) is pure-stdlib; these power the
-# DistilBERT classifier and the Gradio UI.
-gradio>=4.44.0
+# Hugging Face Space manifest (and local `pip install -r requirements.txt`).
+# NOTE: when deployed as a Gradio Space, gradio itself is provided by the Space
+# SDK (see `sdk_version` in README.md) — so it is intentionally NOT pinned here to
+# avoid a version conflict. For a plain local UI install, use:
+#     pip install -e ".[ml,app]"
 torch>=2.2.0
 transformers>=4.44.0
